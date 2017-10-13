@@ -29,8 +29,9 @@ def sign_up():
 
     username_boolean = True
     password_boolean = True
-    email_boolean = True
     verify_boolean = True 
+    email_boolean = True
+    
 
 
 
@@ -49,22 +50,24 @@ def sign_up():
         verify = ''
         verify_boolean = False  
 
-    if len(email) <3 or len(email) > 20 or '@' in email or '.' in email or ' ' in email and email != "":
+
+    if (len(email) < 3 or len(email) > 20 or '@' not in email or '.' not in email or ' ' in email) and email != '':
                 email_error = 'Not valid email 3-20 Characters'  
                 email = ''
-                email_boolean = False   
+                email_boolean = False  
 
-    if username_boolean or password_boolean or email_boolean or verify_boolean == True:
-        
-        return render_template('user_signupform.html', username = username, password = password,
-                            verify = verify, email = email, username_error = username_error, 
-                            password_error = password_error, verify_error = verify_error, email_error = email_error)
-    else:
-
+    if username_boolean and password_boolean and email_boolean and verify_boolean:
         
         return render_template('welcome_gretting.html', username = username, password = password, 
                             verify = verify, email = email, username_error = username_error, 
                             password_error = password_error, verify_error = verify_error, email_error = email_error)
+        
+    else:
+
+        return render_template('user_signupform.html', username = username, password = password,
+                            verify = verify, email = email, username_error = username_error, 
+                            password_error = password_error, verify_error = verify_error, email_error = email_error)
+        
    
    
     #if not password_error and not username_error and not verify_error and not email_error:
